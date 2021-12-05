@@ -46,6 +46,7 @@ The mixing set of fractals and feature visualizations used in the paper can be d
 [here](some link).
 
 ## Pretrained weights
-
+Weights for a 40x4-WRN CIFAR10/100 classifier trained with PixMix for 100 epoch are available
+[here](some link).
 Weights for a ResNet-50 ImageNet classifier trained with PixMix for 90 and 180 epochs are available
 [here](some link).
