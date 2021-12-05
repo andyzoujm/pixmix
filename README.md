@@ -36,9 +36,14 @@ training and evaluation on CIFAR-10/100-C and ImageNet-C.
 
 Training recipes used in our paper:
 
-CIFAR: `python cifar.py`
+CIFAR: `python cifar.py <cifar10 or cifar100> <path/to/mixing_set>`
 
 IMAGNET 1K: `python imagenet.py <path/to/imagenet_train> <path/to/imagenet_val> <path/to/imagenet_r> <path/to/imagenet_c> <path/to/mixing_set> 1000`
+
+## Mixing set
+
+The mixing set of fractals and feature visualizations used in the paper can be downloaded
+[here](some link).
 
 ## Pretrained weights
 
