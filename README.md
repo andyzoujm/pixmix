@@ -31,7 +31,7 @@ Read the paper [here](https://arxiv.org/pdf/2112.05135.pdf).
 
 We also include PyTorch implementations of PixMix on both CIFAR-10/100 and
 ImageNet in `cifar.py` and `imagenet.py` respectively, which both support
-training and evaluation on CIFAR-10/100-C and ImageNet-C.
+training and evaluation on CIFAR-10/100-C and ImageNet-C/R.
 
 ## Usage
 
