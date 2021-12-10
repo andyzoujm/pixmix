@@ -94,9 +94,9 @@ parser.add_argument(
 # WRN Architecture options
 parser.add_argument(
     '--layers', default=40, type=int, help='total number of layers')
-parser.add_argument('--widen-factor', default=2, type=int, help='Widen factor')
+parser.add_argument('--widen-factor', default=4, type=int, help='Widen factor')
 parser.add_argument(
-    '--droprate', default=0.0, type=float, help='Dropout probability')
+    '--droprate', default=0.3, type=float, help='Dropout probability')
 # PixMix options
 parser.add_argument(
     '--beta',
