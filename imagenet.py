@@ -1,9 +1,4 @@
 
-"""
-Train an imagenet classfier 
-Use DeepAugment-style distortions on the network while it is training.
-"""
-
 import argparse
 import os
 import random
@@ -36,10 +31,12 @@ from calibration_tools import *
 utils.IMAGE_SIZE = 224
 
 parser = argparse.ArgumentParser(description='ImageNet Training')
-parser.add_argument('--data-standard', help='Path to dataset', default="/data/imagenet/train/")
-parser.add_argument('--data-val', help='Path to validation dataset', default="/data/imagenet/val/")
-parser.add_argument('--num-classes', choices=['200', '1000'], required=True)
+parser.add_argument('--data-standard', help='Path to dataset', default="data/imagenet/train/")
+parser.add_argument('--data-val', help='Path to validation dataset', default="data/imagenet/val/")
+parser.add_argument('--imagenet-r-dir', help='Path to ImageNet-R', default="data/imagenet_r/")
+parser.add_argument('--imagenet-c-dir', help='Path to ImageNet-C', default="data/imagenet_c/")
 parser.add_argument('--mixing-set', help='Path to mixing set', required=True)
+parser.add_argument('--num-classes', choices=['200', '1000'], required=True)
 parser.add_argument(
     '--aug-severity',
     default=1,
@@ -202,7 +199,7 @@ def augment_input(image):
 
 
 class PixMixDataset(torch.utils.data.Dataset):
-  """Dataset wrapper to perform AugMix augmentation."""
+  """Dataset wrapper to perform PixMix."""
 
   def __init__(self, dataset, mixing_set, preprocess):
     self.dataset = dataset
@@ -340,7 +337,7 @@ def main_worker(gpu, args):
         num_workers=32, pin_memory=True)
     
     val_loader_imagenet_r = torch.utils.data.DataLoader(
-        datasets.ImageFolder("/var/tmp/datasets/imagenet_r", transforms.Compose([
+        datasets.ImageFolder(args.imagenet_r_dir, transforms.Compose([
             transforms.Resize(256),
             transforms.CenterCrop(224),
             transforms.ToTensor(),
@@ -368,8 +365,8 @@ def main_worker(gpu, args):
             f.write('%0.5f,%0.5f,%0.5f,%0.5f\n' % (
                 val_top1, val_top5, r_top1, r_top5
             ))
-        evaluate_c_bar(model, normalize, args)
         evaluate_c(model, normalize, args)
+        # evaluate_c_bar(model, normalize, args)
         print('FINISHED EVALUATION')
         return
 
@@ -472,14 +469,14 @@ def main_worker(gpu, args):
     #########################
 
     evaluate_c(model, normalize, args)
-    evaluate_c_bar(model, normalize, args)
+    # evaluate_c_bar(model, normalize, args)
 
     
 def evaluate_c(model, normalize, args):
 
     model.eval()
 
-    args.data_path = "/var/tmp/datasets/imagenet_c"
+    args.data_path = args.imagenet_c_dir
     with open(os.path.join(args.save, f"eval_imagenet_c_results.csv"), 'w') as f:
         f.write('corruption,strength,top1_accuracy,calib\n')
     

@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
-"""Main script to launch AugMix training on CIFAR-10/100.
+"""Main script to launch PixMix training on CIFAR-10/100.
 
-Supports WideResNet, AllConv, ResNeXt models on CIFAR-10 and CIFAR-100 as well
+Supports WideResNet, ResNeXt models on CIFAR-10 and CIFAR-100 as well
 as evaluation on CIFAR-10-C and CIFAR-100-C.
 
 Example usage:
@@ -28,7 +28,6 @@ import shutil
 import time
 
 import pixmix_utils as utils
-from models.cifar.allconv import AllConvNet
 import numpy as np
 from third_party.ResNeXt_DenseNet.models.densenet import densenet
 from third_party.ResNeXt_DenseNet.models.resnext import resnext29
@@ -51,6 +50,12 @@ parser.add_argument(
     choices=['cifar10', 'cifar100'],
     help='Choose between CIFAR-10, CIFAR-100.')
 parser.add_argument(
+    '--data-path',
+    type=str,
+    default='./data',
+    required=True,
+    help='Path to CIFAR and CIFAR-C directories')
+parser.add_argument(
     '--mixing-set',
     type=str,
     required=True,
@@ -65,7 +70,7 @@ parser.add_argument(
     '-m',
     type=str,
     default='wrn',
-    choices=['wrn', 'allconv', 'densenet', 'resnext'],
+    choices=['wrn', 'densenet', 'resnext'],
     help='Choose architecture.')
 # Optimization options
 parser.add_argument(
@@ -202,7 +207,7 @@ class RandomImages300K(torch.utils.data.Dataset):
         return len(self.dataset)
 
 class PixMixDataset(torch.utils.data.Dataset):
-  """Dataset wrapper to perform AugMix augmentation."""
+  """Dataset wrapper to perform PixMix."""
 
   def __init__(self, dataset, mixing_set, preprocess):
     self.dataset = dataset
@@ -349,19 +354,19 @@ def main():
 
   if args.dataset == 'cifar10':
     train_data = datasets.CIFAR10(
-        './data/cifar', train=True, transform=train_transform, download=True)
+        os.path.join(args.data_path, 'cifar'), train=True, transform=train_transform, download=True)
     test_data = datasets.CIFAR10(
-        './data/cifar', train=False, transform=test_transform, download=True)
-    base_c_path = './data/cifar/CIFAR-10-C/'
-    base_c_bar_path = './data/cifar/CIFAR-10-C-Bar/'
+        os.path.join(args.data_path, 'cifar'), train=False, transform=test_transform, download=True)
+    base_c_path = os.path.join(args.data_path, 'cifar/CIFAR-10-C/')
+    base_c_bar_path = os.path.join(args.data_path, 'cifar/CIFAR-10-C-Bar/')
     num_classes = 10
   else:
     train_data = datasets.CIFAR100(
-        './data/cifar', train=True, transform=train_transform, download=True)
+        os.path.join(args.data_path, 'cifar'), train=True, transform=train_transform, download=True)
     test_data = datasets.CIFAR100(
-        './data/cifar', train=False, transform=test_transform, download=True)
-    base_c_path = './data/cifar/CIFAR-100-C/'
-    base_c_bar_path = './data/cifar/CIFAR-100-C-Bar/'
+        os.path.join(args.data_path, 'cifar'), train=False, transform=test_transform, download=True)
+    base_c_path = os.path.join(args.data_path, 'cifar/CIFAR-100-C/')
+    base_c_bar_path = os.path.join(args.data_path, 'cifar/CIFAR-100-C-Bar/')
     num_classes = 100
 
   if args.use_300k:
@@ -403,9 +408,6 @@ def main():
     net = densenet(num_classes=num_classes)
   elif args.model == 'wrn':
     net = WideResNet(args.layers, num_classes, args.widen_factor, args.droprate)
-    # net = wide_resnet50_2(pretrained=False, num_classes=num_classes)
-  elif args.model == 'allconv':
-    net = AllConvNet(num_classes)
   elif args.model == 'resnext':
     net = resnext29(num_classes=num_classes)
 
@@ -513,11 +515,10 @@ def main():
   test_c_acc = test_c(net, test_data, base_c_path)
   print('Mean C Corruption Error: {:.3f}\n'.format(100 - 100. * test_c_acc))
 
-  if args.dataset == 'cifar100':
-    test_c_bar_acc = test_c(net, test_data, base_c_bar_path)
-    print('Mean C-Bar Corruption Error: {:.3f}\n'.format(100 - 100. * test_c_bar_acc))
+  # test_c_bar_acc = test_c(net, test_data, base_c_bar_path)
+  # print('Mean C-Bar Corruption Error: {:.3f}\n'.format(100 - 100. * test_c_bar_acc))
 
-    print('Mean Corruption Error: {:.3f}\n'.format(100 - 100. * (15*test_c_acc + 10*test_c_bar_acc)/25))
+  # print('Mean Corruption Error: {:.3f}\n'.format(100 - 100. * (15*test_c_acc + 10*test_c_bar_acc)/25))
 
   with open(log_path, 'a') as f:
     f.write('%03d,%05d,%0.6f,%0.5f,%0.2f\n' %
