@@ -19,6 +19,7 @@ data augmentation strategy utilizing the natural structural complexity of pictur
 such as fractals, which outperforms numerous baselines, is near Pareto-optimal,
 and comprehensively improves safety measures.
 
+Read the paper [here](https://arxiv.org/pdf/2112.05135.pdf).
 
 ## Pseudocode
 
@@ -38,15 +39,27 @@ Training recipes used in our paper:
 
 CIFAR: `python cifar.py <cifar10 or cifar100> <path/to/mixing_set>`
 
-IMAGNET 1K: `python imagenet.py <path/to/imagenet_train> <path/to/imagenet_val> <path/to/imagenet_r> <path/to/imagenet_c> <path/to/mixing_set> 1000`
+ImageNet 1K: `python imagenet.py <path/to/imagenet_train> <path/to/imagenet_val> <path/to/imagenet_r> <path/to/imagenet_c> <path/to/mixing_set> 1000`
 
-## Mixing set
+## Mixing Set
 
 The mixing set of fractals and feature visualizations used in the paper can be downloaded
-[here](some link).
+[here](https://drive.google.com/file/d/1qC2gIUx9ARU7zhgI4IwGD3YcFhm8J4cA/view?usp=sharing).
 
-## Pretrained weights
-Weights for a 40x4-WRN CIFAR10/100 classifier trained with PixMix for 100 epoch are available
-[here](some link).
+## Pretrained Models
+Weights for a 40x4-WRN CIFAR-10/100 classifier trained with PixMix for 100 epochs are available
+[here](https://drive.google.com/drive/folders/1tHu2MBU3P9lvgtc06_VaC6AsMqwyYFSA?usp=sharing).
+
 Weights for a ResNet-50 ImageNet classifier trained with PixMix for 90 and 180 epochs are available
-[here](some link).
+[here](https://drive.google.com/drive/folders/1tHu2MBU3P9lvgtc06_VaC6AsMqwyYFSA?usp=sharing).
+
+## Citation
+
+If you find this useful in your research, please consider citing:
+
+    @article{hendrycks2022robustness,
+      title={PixMix: Dreamlike Pictures Comprehensively Improve Safety Measures},
+      author={Dan Hendrycks and Andy Zou and Mantas Mazeika and Leonard Tang and Dawn Song and Jacob Steinhardt},
+      journal={arXiv preprint arXiv:2112.05135},
+      year={2022}
+    }
