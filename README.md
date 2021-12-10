@@ -37,9 +37,26 @@ training and evaluation on CIFAR-10/100-C and ImageNet-C.
 
 Training recipes used in our paper:
 
-CIFAR: `python cifar.py <cifar10 or cifar100> <path/to/cifar> <path/to/mixing_set>`
+CIFAR: 
+  ```
+  python cifar.py \
+    --dataset <cifar10 or cifar100> \
+    --data-path <path/to/cifar and cifar-c> \
+    --mixing-set <path/to/mixing_set> \
+    --all-ops
+  ```
 
-ImageNet 1K: `python imagenet.py <path/to/imagenet_train> <path/to/imagenet_val> <path/to/imagenet_r> <path/to/imagenet_c> <path/to/mixing_set> 1000`
+ImageNet 1K:
+  ```
+  python imagenet.py \
+    --data-standard <path/to/imagenet_train> \
+    --data-val <path/to/imagenet_val> \
+    --imagenet-r-dir <path/to/imagenet_r> \
+    --imagenet-c-dir <path/to/imagenet_c> \
+    --mixing-set <path/to/mixing_set> \
+    --num-classes 1000 \
+    --all-ops
+  ```
 
 ## Mixing Set
 
