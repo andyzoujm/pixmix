@@ -19,6 +19,7 @@ data augmentation strategy utilizing the natural structural complexity of pictur
 such as fractals, which outperforms numerous baselines, is near Pareto-optimal,
 and comprehensively improves safety measures.
 
+Read the paper [here](https://arxiv.org/pdf/2112.05135.pdf).
 
 ## Pseudocode
 
@@ -59,6 +60,6 @@ If you find this useful in your research, please consider citing:
     @article{hendrycks2022robustness,
       title={PixMix: Dreamlike Pictures Comprehensively Improve Safety Measures},
       author={Dan Hendrycks and Andy Zou and Mantas Mazeika and Leonard Tang and Dawn Song and Jacob Steinhardt},
-      journal={arXiv},
+      journal={arXiv preprint arXiv:2112.05135},
       year={2022}
     }
