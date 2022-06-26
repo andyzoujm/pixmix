@@ -1,6 +1,6 @@
 # PixMix
 
-This is the repository for "PixMix: Dreamlike Pictures Comprehensively Improve Safety Measures" 
+This is the repository for "[PixMix: Dreamlike Pictures Comprehensively Improve Safety Measures](https://arxiv.org/abs/2112.05135.pdf)"  
 by [Dan Hendrycks*](https://danhendrycks.com/), [Andy Zou*](https://andyzoujm.github.io/), [Mantas Mazeika](https://www.linkedin.com/in/mmazeika/), [Leonard Tang](https://leonardtang.me/), [Bo Li](https://aisecure.github.io), [Dawn Song](https://people.eecs.berkeley.edu/~dawnsong/), and [Jacob Steinhardt](https://www.stat.berkeley.edu/~jsteinhardt/).
 
 <img align="center" src="assets/pixmix.png" width="750">
