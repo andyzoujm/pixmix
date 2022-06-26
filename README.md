@@ -1,5 +1,8 @@
 # PixMix
 
+This is the repository for "PixMix: Dreamlike Pictures Comprehensively Improve Safety Measures" 
+by [Dan Hendrycks*](https://danhendrycks.com/), [Andy Zou*](https://andyzoujm.github.io/), [Mantas Mazeika](https://www.linkedin.com/in/mmazeika/), [Leonard Tang](https://leonardtang.me/), [Bo Li](https://aisecure.github.io), [Dawn Song](https://people.eecs.berkeley.edu/~dawnsong/), and [Jacob Steinhardt](https://www.stat.berkeley.edu/~jsteinhardt/).
+
 <img align="center" src="assets/pixmix.png" width="750">
 
 ## Introduction
@@ -10,16 +13,11 @@ include out-of-distribution (OOD) robustness, prediction consistency, resilience
 adversaries, calibrated uncertainty estimates, and the ability to detect anomalous
 inputs. However, improving performance towards these goals is often a balancing
 act that today’s methods cannot achieve without sacrificing performance on other
-safety axes. For instance, adversarial training improves adversarial robustness
-but sharply degrades other classifier performance metrics. Similarly, strong data
-augmentation and regularization techniques often improve OOD robustness but
-harm anomaly detection, raising the question of whether a Pareto improvement on
+safety axes, raising the question of whether a Pareto improvement on
 all existing safety measures is possible. To meet this challenge, we design a new
 data augmentation strategy utilizing the natural structural complexity of pictures
 such as fractals, which outperforms numerous baselines, is near Pareto-optimal,
 and comprehensively improves safety measures.
-
-Read the paper [here](https://arxiv.org/pdf/2112.05135.pdf).
 
 ## Pseudocode
 
